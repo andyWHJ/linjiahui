@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的会员卡</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,user-scalable=no,minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../../css/custorm.css">
+    <link rel="stylesheet" type="text/css" href="../../css/slider/slider.css">
+    <link rel="stylesheet" type="text/css" href="../../css/slider/slider.default.css">
+    <link rel="stylesheet" type="text/css" href="../../css/iscroll.css">
+    <link rel="stylesheet" type="text/css" href="../../css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="../../css/dialog/dialog.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/dialog/dialog.default.css"/>
+
+    <style>
+        .user-info ul {
+            display: -webkit-box;
+            width: 100%;
+        }
+
+        .user-info li {
+            padding-left: 12px;
+            height: 30px;
+        }
+
+        .user-info li, .user-action li {
+            display: -webkit-box;
+            -webkit-box-align: center;
+            width: 100%;
+            -webkit-box-flex: 1;
+
+        }
+
+        .user-action li {
+            height: 50px;
+            border-bottom: 1px solid #f7f7f7;
+        }
+
+        .tc {
+            text-align: center;
+        }
+
+
+
+        button {
+            width: 50%;
+            height: 30px;
+            border: none;
+        }
+        .ui-slider-red:after{
+            background-size: 35px 15px;
+            background-url: url(../../image/ui-slider-arrow.png) no-repeat;
+            background-color: rgba(247, 9, 9, 1);
+        }
+    </style>
+</head>
+<body>
+<div class="mark">
+    <div class="spinner">
+        <div class="spinner-container container1">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container2">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <span class="ui-toolbar-title">我的会员卡</span>
+</header>
+<section>
+    <div id="wrapper">
+        <div id="scroller">
+            <section id="login-content" style="height: 0;-webkit-transform: translate3d( -1000px,0px, 0px)">
+                <div class="mod-content">
+                    <p class="error_area" id="error"></p>
+
+                    <p class="form-item form-input-wrapper form-item-username">
+                        <label class="text-label" for="login-username" id="login-label-username">
+                            <i class="fa fa-user fa-2x"></i>
+                        </label>
+                        <input type="text" name="username" autocomplete="off" class="text-input" maxlength="60"
+                               placeholder="手机号/邮箱/用户名" value=""
+                               id="login-username">
+            <span class="input-clearValue">
+                <i class="fa fa-times-circle"></i>
+            </span>
+                    </p>
+
+                    <p class="form-item form-input-wrapper">
+                        <label class="text-label" for="login-password" id="login-label-password">
+                            <i class="fa fa-lock fa-2x"></i>
+                        </label>
+                        <input type="password" name="password" autocomplete="off" class="text-input" id="login-password"
+                               placeholder="密码" value="">
+            <span class="input-clearValue">
+                <i class="fa fa-times-circle"></i>
+            </span>
+            <span id="login-pwdToggle" class="input-aide input-pwdToggle">
+                <i class="fa fa-eye"></i>
+            </span>
+                    </p>
+
+                    <p class="form-item">
+                        <input type="submit" value="登录" id="login-submit" class="pass-button-full">
+                    </p>
+
+                    <p class="clearfix">
+                        <a class="right" href="#">忘记密码？</a>
+                    </p>
+                </div>
+            </section>
+
+            <section id="member-content" style="margin-top: 4px;">
+                <section class="user-info">
+                    <ul>
+                        <li id="username">
+                            用户名：<span></span>
+                        </li>
+                    </ul>
+                    <ul style="border-bottom:1px solid ">
+                        <li id="userLevel">
+                            等级：<span></span>
+                        </li>
+                        <li class="yellow-color">绑定更多会员卡>></li>
+                    </ul>
+                    <ul class="grey-bc red-color">
+                        <li id="cardname"></li>
+                        <li id="score" class="black-color">
+                           积分：<span></span>
+                        </li>
+                    </ul>
+                    <ul class="grey-bc red-color">
+                        <li id="cardNo">
+                            卡号： <span></span>
+                        </li>
+                        <li>查看电子账单>>></li>
+                    </ul>
+                </section>
+                <div class="user-card ">
+
+
+                    <div id="slider"  style="height: 146px">
+
+                    </div>
+
+                </div>
+                <section class="user-action">
+                    <ul>
+                        <li>
+                            <div class="tc red-color" style="-webkit-box-flex:1">
+                                <i class="fa fa-file-text fa-2x "></i>
+                            </div>
+                            <div style="-webkit-box-flex:5">我的订单</div>
+                            <div style="-webkit-box-flex:1">
+                                <i class="fa fa-angle-right"></i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="tc red-color" style="-webkit-box-flex:1">
+                                <i class="fa fa-star fa-2x"></i>
+                            </div>
+                            <div style="-webkit-box-flex:5">我的收藏</div>
+                            <div style="-webkit-box-flex:1">
+                                <i class="fa fa-angle-right"></i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="tc red-color" style="-webkit-box-flex:1">
+                                <i class="fa fa-unlock-alt fa-2x"></i>
+                            </div>
+                            <div style="-webkit-box-flex:5">修改密码</div>
+                            <div style="-webkit-box-flex:1">
+                                <i class="fa fa-angle-right"></i>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="tc red-color" style="-webkit-box-flex:1">
+                                <i class="fa fa-user fa-2x"></i>
+                            </div>
+                            <div style="-webkit-box-flex:5">账户信息</div>
+                            <div style="-webkit-box-flex:1">
+                                <i class="fa fa-angle-right"></i>
+                            </div>
+                        </li>
+                        <li>
+
+                            <div class="tc" style="-webkit-box-flex:1">
+                                <button id="logout" class="red-bc white-color">注销</button>
+                            </div>
+
+                        </li>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
+</section>
+<div id="dialog1" title="登陆提示">
+    <p>请使用百度账号登录后, 获得更多个性化特色功能</p>
+</div>
+<footer class="footer">
+    <ul>
+        <li data-url="../home/index.html">
+            <i class="fa fa-2x fa-home bar-active"></i>
+        </li>
+        <li data-url="../memberCenter/memberCenter.html">
+            <i class="fa fa-user fa-2x"></i>
+        </li>
+        <li data-url="../message/messageList.html">
+            <i class="fa fa-wechat fa-2x"></i>
+        </li>
+        <li data-url="#">
+            <i class="fa fa-map-marker fa-2x"></i>
+        </li>
+        <li data-url="#">
+            <i class="fa fa-bars fa-2x"></i>
+        </li>
+    </ul>
+</footer>
+</body>
+<script src="../../js/lib/gmu/zepto.js"></script>
+<script src="../../js/lib/gmu/iscroll.js"></script>
+<script src="../../js/lib/gmu/highlight.js"></script>
+<script src="../../js/lib/gmu/gmu.js"></script>
+<script src="../../js/lib/gmu/event.js"></script>
+<script src="../../js/lib/gmu/widget.js"></script>
+<script src="../../js/lib/gmu/slider.js"></script>
+<script src="../../js/lib/gmu/arrow.js"></script>
+<script src="../../js/lib/gmu/navigator.js"></script>
+<script src="../../js/lib/gmu/scrolltonext.js"></script>
+<script src="../../js/lib/gmu/$scrollable.js"></script>
+<script src="../../js/lib/gmu/$touch.js"></script>
+<script src="../../js/lib/gmu/imglazyload.js"></script>
+<script src="../../js/lib/gmu/iscroll.js"></script>
+<script src="../../js/lib/gmu/parseTpl.js"></script>
+<script src="../../js/lib/gmu/dialog.js"></script>
+
+<script src="../../js/lib/common.js"></script>
+<script src="../../js/utils/paramValidateUtils.js"></script>
+<script src="../../js/lib/interFace.js"></script>
+<script src="../../js/lib/ajaxRequestUtils.js"></script>
+<script src="../../js/Listeners/user/login.js"></script>
+<script src="../../js/Listeners/memberCenter/memberCenter.js"></script>
+<script>
+    var myScroll;
+    function loaded() {
+        myScroll = new iScroll('wrapper', {
+            onBeforeScrollStart: function (e) {
+                var target = e.target;
+                while (target.nodeType != 1) {
+                    target = target.parentNode;
+                }
+                if (target.tagName != 'SELECT' && target.tagName != 'INPUT' && target.tagName != 'TEXTAREA') {
+
+                    e.preventDefault();
+                }
+            },
+            onScrollMove: function () {
+
+            },
+            onScrollEnd:function(){
+
+            }
+
+        })
+    }
+
+    $(function () {
+
+        $('#dialog1').dialog({
+            autoOpen: false,
+            closeBtn: false,
+            buttons: {
+                '取消': function () {
+                    this.close();
+                },
+                '确定': function () {
+                    this.close();
+                    localStorage.clear();
+                }
+            }
+        }).dialog('this')._options['_wrap'].addClass('login-dialog');
+        loaded();
+        $("#logout").on("tap", function () {
+            $('#dialog1').dialog('open');
+
+        })
+        $("footer i").eq(1).animate({
+            color: "red"
+        }, 500, "easy-out");
+        var type = "password";
+        $("input").on("focus blur ", function () {
+            $(this).prev().toggleClass("input-label-show");
+
+        })
+        $("input").on("keyup", function (e) {
+            if ($(this).val().length == 0) {
+                $(this).next().hide();
+            } else {
+                $(this).next().css("display", "-webkit-box");
+            }
+        })
+        $(".input-clearValue").on("tap", function () {
+            $(this).prev().val("").focus();
+
+        })
+        $("#login-pwdToggle").on("tap", function () {
+            $(this).toggleClass("input-pwdToggle-show");
+            if (type === "password") {
+                type = "text"
+            } else {
+                type = "password"
+            }
+            $(this).siblings("input").attr("type", type).focus();
+        })
+    })
+</script>
+</html>
+

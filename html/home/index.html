@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1.0, user-scalable=no,minimal-ui">
+    <link rel="stylesheet" type="text/css" href="../../css/slider/slider.css">
+    <link rel="stylesheet" type="text/css" href="../../css/slider/slider.default.css">
+    <link rel="stylesheet" type="text/css" href="../../css/custorm.css">
+    <link rel="stylesheet" type="text/css" href="../../css/loading.default.css">
+    <link rel="stylesheet" type="text/css" href="../../css/iscroll.css">
+    <link rel="stylesheet" type="text/css" href="../../css/font-awesome.css">
+</head>
+<body>
+<div class="mark">
+    <div class="spinner">
+        <div class="spinner-container container1">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container2">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <span class="ui-toolbar-title">首页</span>
+
+    <div class="ui-toolbar-icon" style="float: right">
+        <i class="fa fa-search fa-2x"></i>
+    </div>
+</header>
+<section style="margin-top: 48px">
+
+    <div id="wrapper">
+        <div id="scroller" style="background-color:#fff">
+            <div id="pullDown" style="margin-left: 30%;">
+                <span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span>
+            </div>
+            <div id="slider" style="border-top: 1px solid #ccc;">
+
+            </div>
+            <div class="clearfix"></div>
+            <div>
+                <div class="box" id="ad1">
+
+                </div>
+                <div class="box" id="ad2">
+
+                </div>
+                <div class="box" id="ad3">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <ul>
+        <li data-url="../home/index.html">
+            <i class="fa fa-2x fa-home bar-active"></i>
+        </li>
+        <li data-url="../memberCenter/memberCenter.html">
+            <i class="fa fa-user fa-2x"></i>
+        </li>
+        <li data-url="../message/messageList.html">
+            <i class="fa fa-wechat fa-2x"></i>
+        </li>
+        <li data-url="#">
+            <i class="fa fa-map-marker fa-2x"></i>
+        </li>
+        <li data-url="#">
+            <i class="fa fa-bars fa-2x"></i>
+        </li>
+    </ul>
+</footer>
+</body>
+<script src="../../js/lib/gmu/zepto.js"></script>
+<script src="../../js/lib/gmu/matchMedia.js"></script>
+<script src="../../js/lib/gmu/event.ortchange.js"></script>
+<script src="../../js/lib/gmu/parseTpl.js"></script>
+<script src="../../js/lib/gmu/gmu.js"></script>
+<script src="../../js/lib/gmu/event.js"></script>
+<script src="../../js/lib/gmu/widget.js"></script>
+<script src="../../js/lib/gmu/slider.js"></script>
+<script src="../../js/lib/gmu/dots.js"></script>
+<script src="../../js/lib/gmu/$touch.js"></script>
+<script src="../../js/lib/gmu/$autoplay.js"></script>
+<script src="../../js/lib/gmu/$lazyloadimg.js"></script>
+<script src="../../js/lib/gmu/iscroll.js"></script>
+
+
+<script src="../../js/lib/common.js"></script>
+<script src="../../js/lib/interFace.js"></script>
+<script src="../../js/Listeners/home/home.js"></script>
+<script src="../../js/lib/tools.js"></script>
+<script src="../../js/lib/ajaxRequestUtils.js"></script>
+
+<script>
+    window.scrollTo(0, 1);//收起地址栏
+    var myScroll, pullDownEl, pullDownOffset;
+    /**
+     * 初始化iScroll控件
+     */
+    function loaded() {
+        pullDownEl = document.getElementById('pullDown');
+        pullDownOffset = pullDownEl.offsetHeight;
+
+        myScroll = new iScroll('wrapper', {
+            scrollbarClass: 'myScrollbar', /* 重要样式 */
+            useTransition: false, /* 此属性不知用意，本人从true改为false */
+            topOffset: pullDownOffset,
+            onRefresh: function () {
+                if (pullDownEl.className.match('loading')) {
+                    pullDownEl.className = '';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+                }
+            },
+            onScrollMove: function () {
+                if (this.y > 5 && !pullDownEl.className.match('flip')) {
+                    pullDownEl.className = 'flip';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '松手开始更新...';
+                    this.minScrollY = 0;
+                } else if (this.y < 5 && pullDownEl.className.match('flip')) {
+                    pullDownEl.className = '';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+                    this.minScrollY = -pullDownOffset;
+                }
+            },
+            onScrollEnd: function () {
+                if (pullDownEl.className.match('flip')) {
+                    //$('#slider').slider("destroy");
+                    pullDownEl.className = 'loading';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';
+                    index();
+                }
+
+            }
+        });
+    }
+    function index() {
+        var data = "TL_SY,SY_1,SY_2,SY_3";
+        advertBanner(data);
+    }
+    $(document).ready(function () {
+        $("footer i").first().animate({
+            color: "red"
+        }, 500, "easy-out");
+        index();
+        loaded();
+    });
+</script>
+</html>

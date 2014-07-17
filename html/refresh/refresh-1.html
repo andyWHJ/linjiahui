@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>点击加载</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+       <style>
+           ul{
+               list-style: none;
+           }
+           .touchBox {
+               width: 100%;
+               margin: 0px auto;
+               overflow: hidden;
+               border-bottom: 1px solid #CCCCCC;
+               padding: 6px 0 6px 4px;
+           }
+           .innerBox {
+               width: 200%;
+               margin: 0px;
+               padding: 0px;
+               position: relative
+           }
+           .delete {
+               width:70px;
+               -webkit-box-pack: center;
+           }
+           .innerBox li:first-child{
+               width: 50%;
+           }
+           .innerBox li{
+               height: 70px;
+               float: left;
+               list-style: none;
+               background: #FFFFFF;
+               display: -webkit-box;
+               -webkit-box-align: center;
+           }
+        .message-info {
+            line-height: 22px;
+            padding-left: 11px;
+        }
+    </style>
+    <!--demo展示所用css end-->
+
+    <!--组件依赖css begin-->
+    <link rel="stylesheet" type="text/css" href="../../css/loading.default.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/refresh/refresh.default.css"/>
+    <!--皮肤文件，若不使用该皮肤，可以不加载-->
+    <!--组件依赖css end-->
+    <!--组件依赖js begin-->
+    <script type="text/javascript" src="../../js/lib/gmu/zepto.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/gmu.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/event.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/widget.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/refresh.js"></script>
+    <!--组件依赖js end-->
+</head>
+
+<body>
+<div class="ui-refresh">
+    <ul class="data-list">
+       <li>
+           <div class="touchBox">
+               <ul class="innerBox">
+                   <li>
+                       <div>
+                           <img height="70" width="70"
+                                src="http://pic.zb2.linjiahui.com/img/thumbnail/dm/cc/f8/04/s/20140711143837644.jpg">
+                       </div>
+                       <div class="message-info">
+                           <p>购膨化食品幸运大抽奖</p>
+
+                           <p>2014-07-11 00:00:00</p>
+
+                           <p>2014-07-11 00:00:00</p>
+                       </div>
+                   </li>
+                   <li class="delete">
+                       <i class="fa fa-minus-circle fa-2x red-color"></i>
+                   </li>
+               </ul>
+           </div>
+       </li>
+    </ul>
+    <div class="ui-refresh-down"></div>
+    <!--setup方式带有class为ui-refresh-down或ui-refresh-up的元素必须加上，用于放refresh按钮-->
+</div>
+
+<script type="text/javascript">
+    (function () {
+        /*组件初始化js begin*/
+        $('.ui-refresh').refresh({
+            load: function (dir, type) {
+                var me = this;
+                $.getJSON(url, function (data) {
+                    var $list = $('.data-list'),
+                            html = (function (data) {      //数据渲染
+                                var liArr = [];
+                                $.each(data, function () {
+                                    liArr.push(this.html);
+                                });
+                                return liArr.join('');
+                            })(data);
+
+                    $list[dir == 'up' ? 'prepend' : 'append'](html);
+                    me.afterDataLoading();    //数据加载完成后改变状态
+                });
+            }
+        });
+        /*组件初始化js end*/
+    })();
+</script>
+
+</body>
+</html>

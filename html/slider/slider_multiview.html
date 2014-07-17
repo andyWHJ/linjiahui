@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+    <title>可视区域显示多张图片的图片轮播</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <!--demo展示所用css，不用关心 begin-->
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css">
+    <!--demo展示所用css end-->
+    <!--组件依赖css begin-->
+    <link rel="stylesheet" type="text/css" href="../../css/slider/slider.css">
+    <link rel="stylesheet" type="text/css" href="../../css/slider/slider.default.css">    <!--组件依赖css end-->
+    <!--组件依赖css end-->
+    <!--组件依赖js begin-->
+    <script type="text/javascript" src="../../js/lib/gmu/zepto.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/touch.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/matchMedia.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/event.ortchange.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/parseTpl.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/gmu.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/event.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/widget.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/slider.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/arrow.js"></script>
+    <script type="text/javascript" src="../../js/$touch.js"></script>
+    <script type="text/javascript" src="../../js/$multiview.js"></script>
+    <!--组件依赖js end-->
+</head>
+<body>
+
+<div id="slider" style="height: 140px;"></div>
+<script>
+    //创建slider组件
+    var slider = new $.ui.Slider('#slider', {
+        autoPlay:false,
+        viewNum:3,
+        travelSize: 3,
+        content:[
+            {
+                href: "http://www.baidu.com",
+                pic: "../../image/pic1.jpg",
+                title:'白昼冷光'
+            }, {
+                href: "http://www.baidu.com",
+                pic: "../../image/pic2.jpg",
+                title: "听风者"
+            }, {
+                href: "http://www.baidu.com",
+                pic: "../../image/pic3.jpg",
+                title: "暮光之城2"
+            }, {
+                href: "http://www.baidu.com",
+                pic: "../../image/pic4.jpg",
+                title: "搞定岳父大人"
+            },
+            {
+                href: "http://www.baidu.com",
+                pic: "../../image/pic5.jpg",
+                title: "三个火枪手"
+            }, {
+                href: "http://www.baidu.com",
+                pic: "../../image/pic6.jpg",
+                title: "人在囧途"
+            }, {
+                href: "http://www.baidu.com",
+                pic: "../../image/pic7.jpg",
+                title: "第一次"
+            }, {
+                href: "http://www.baidu.com",
+                pic: "../../image/pic8.jpg",
+                title: "婚前试爱"
+            }, {
+                href: "http://www.baidu.com",
+                pic: "../../image/pic9.jpg",
+                title: "青春期"
+            }
+        ]
+    });
+</script>
+</body>
+</html>

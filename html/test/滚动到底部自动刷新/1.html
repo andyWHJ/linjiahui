@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <script type="text/javascript" src="zepto.js"></script>
+    <script>
+
+        var totalheight = 0;
+        function loadData() {
+            totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+            if ($(document).height() <= totalheight) {
+                /*
+                 load Some data...
+                 */
+                document.write($("body").html()+"d1<br/>")
+            }
+        }
+
+        $(window).scroll(function () {
+            console.log("滚动条到顶部的垂直高度: " + $(window).scrollTop());
+            console.log("页面的文档高度 ：" + $(document).height());
+            console.log('浏览器的高度：' + $(window).height());
+            loadData();
+        });
+    </script>
+</head>
+<body>
+dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>dd<br/>
+</body>
+</html>

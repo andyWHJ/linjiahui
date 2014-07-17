@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <title>zTouch 手机触屏滑动事件</title>
+    <script src="../../js/lib/gmu/zepto.js" type="text/javascript"></script>
+    <script src="../../js/lib/zTouch.js" type="text/javascript"></script>
+    <style type="text/css">
+        * {
+            font-family: XinGothic-SinaWeibo, 'Microsoft Yahei', Simsun;
+        }
+
+        .touchBox {
+            width: 250px;
+            background: #ccc;
+            border: solid 1px #555;
+            margin: 0px auto;
+            cursor: move;
+            overflow: hidden;
+        }
+
+        .innerBox {
+            width: 200%;
+            margin: 0px;
+            padding: 0px;
+            position: relative
+        }
+
+        .innerBox li {
+            width: 50%;
+            height: 50px;
+            color: #fff;
+            float: left;
+            list-style: none;
+            background: #555;
+            -webkit-box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div class="touchBox">
+    <ul class="innerBox">
+        <li>BOX1</li>
+        <li class="delete" style="width: 10%;border: 1px solid red;">BOX2</li>
+    </ul>
+</div>
+----------------------
+<div class="touchBox">
+    <ul class="innerBox">
+        <li>BOX11</li>
+        <li class="delete" style="width: 10%;border: 1px solid red;">BOX22</li>
+    </ul>
+</div>
+----------------------
+<div class="touchBox" id="1">
+    <ul class="innerBox">
+        <li>BOX11</li>
+        <li class="delete" style="width: 10%;border: 1px solid red;">BOX22</li>
+    </ul>
+</div>
+<input >
+<script type="text/javascript">
+
+    function transformBox(obj, value, time) {
+        var time = time ? time : 0;
+        obj.css({'-webkit-transform': "translate(" + value + "px)", '-webkit-transition': time + 'ms linear'});
+    }
+    args = {
+        iniAngle: 15,
+        speed: 300,
+        sCallback: function (tPoint) {
+           // $(".showT").html("touchStart");
+        },
+        mCallback: function (tPoint) {
+
+            //if(tPoint.direction=="right"||tPoint.direction==false){
+            //    return;
+            // }
+            var _this = tPoint.self,
+                    _inner = _this.find(".innerBox"),
+                    innerW = _inner.width();
+            var offset = tPoint.mX + tPoint.count * innerW /15000000;
+            // if (Math.abs(tPoint.angle) < 15) {
+            // console.log(offset)
+            transformBox(_inner, offset, 0);
+            //}
+            //$("#showT").html(tPoint.gStartDis+"  "+tPoint.gEndDis);
+            //$("#showT").html(tPoint.rotation+"  "+tPoint.gStartAngle+"  "+tPoint.gEndAngle);
+            $("#showT").html("角度:" + tPoint.angle + "  时间:" + tPoint.duration + "<br>X轴移动距离" + tPoint.mX + "  Y轴移动距离：" + tPoint.mY);
+        },
+        eCallback: function (tPoint) {
+            var _this = tPoint.self,
+                    _inner = _this.find(".innerBox"),
+                    innerW = _inner.width(),
+                    count = tPoint.count,
+                    offset
+                    ;
+
+            function slide(d) {
+                switch (d) {
+                    case "left":
+                        --count;
+                        offset=-50
+                        break;
+                    case "right":
+                        offset=0
+                        ++count;
+                    case  false:
+                        offset=0;
+                }
+                count = (count == 1 || count == -tPoint.total) ? tPoint.count : count;
+                //var offset = count * innerW / tPoint.total;
+                transformBox(_inner, offset, tPoint.speed);
+            }
+
+            slide(tPoint.direction);
+            $("#showT").html("X-Y轴移动:" + tPoint.mX + "px | " + tPoint.mY + "px<br>X-Y轴限定:" + tPoint.iniL + " | " + tPoint.iniL + "<br>手势滑动方向：" + tPoint.direction);
+            tPoint.setAttr("count", count);
+        }
+    }
+
+    $(function(){
+
+        $(".delete").on("tap",function(){
+            $(this).parents(".touchBox").remove();
+           $(".touchBox").Swipe(args);
+        });
+        $(".touchBox").Swipe(args);
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1.0, user-scalable=no,minimal-ui">
+    <link rel="stylesheet" type="text/css" href="../../css/custorm.css">
+    <link rel="stylesheet" type="text/css" href="../../css/iscroll.css">
+    <link rel="stylesheet" type="text/css" href="../../css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="../../css/zTouch.css">
+
+    <link rel="stylesheet" type="text/css" href="../../css/loading.default.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/refresh/refresh.default.css"/>
+    <!--皮肤文件，若不使用该皮肤，可以不加载-->
+    <link rel="stylesheet" type="text/css" href="../../css/refresh/refresh.iscroll.default.css"/>
+    <!--皮肤文件，若不使用该皮肤，可以不加载-->
+    <style>
+        .message-info {
+            line-height: 22px;
+            padding-left: 11px;
+        }
+    </style>
+</head>
+<body>
+<div class="mark">
+    <div class="spinner">
+        <div class="spinner-container container1">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+        <div class="spinner-container container2">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="circle3"></div>
+            <div class="circle4"></div>
+        </div>
+    </div>
+</div>
+<header class="header">
+    <span class="ui-toolbar-title">消息</span>
+
+    <div class="ui-toolbar-icon" style="float: right">
+        <i class="fa fa-search fa-2x"></i>
+    </div>
+</header>
+<section>
+    <div id="wrapper">
+        <div id="scroller" style="background-color: #fff">
+            <div id="datalist">
+
+            </div>
+            <div id="pullUp" style="margin-left: 30%">
+                <span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+<footer class="footer">
+    <ul>
+        <li data-url="../home/index.html">
+            <i class="fa fa-2x fa-home bar-active"></i>
+        </li>
+        <li data-url="../memberCenter/memberCenter.html">
+            <i class="fa fa-user fa-2x"></i>
+        </li>
+        <li data-url="#">
+            <i class="fa fa-wechat fa-2x"></i>
+        </li>
+        <li data-url="#">
+            <i class="fa fa-map-marker fa-2x"></i>
+        </li>
+        <li data-url="#">
+            <i class="fa fa-bars fa-2x"></i>
+        </li>
+    </ul>
+</footer>
+</body>
+<script src="../../js/lib/gmu/zepto.js"></script>
+<script src="../../js/lib/gmu/gmu.js"></script>
+<script src="../../js/lib/gmu/event.js"></script>
+<script src="../../js/lib/gmu/widget.js"></script>
+<script src="../../js/lib/gmu/iscroll.js"></script>
+<script src="../../js/lib/zTouch.js"></script>
+
+<script src="../../js/lib/common.js"></script>
+<script src="../../js/lib/interFace.js"></script>
+<script src="../../js/Listeners/messageCenter/messageList.js"></script>
+<script src="../../js/lib/tools.js"></script>
+<script src="../../js/lib/ajaxRequestUtils.js"></script>
+
+<script type="text/javascript">
+    var myScroll;
+    $(document).ready(function () {
+        $("footer i").eq(2).animate({
+            color: "red"
+        }, 500, "easy-out");
+
+    });
+    function transformBox(obj, value, time) {
+        var time = time ? time : 0;
+        obj.css({'-webkit-transform': "translate(" + value + "px)", '-webkit-transition': time + 'ms linear'});
+    }
+    args = {
+        iniAngle: 15,
+        speed: 300,
+        sCallback: function (tPoint) {
+        },
+        mCallback: function (tPoint) {
+            var _this = tPoint.self,
+                    _inner = _this.find(".innerBox"),
+                    innerW = _inner.width();
+            var offset = tPoint.mX + tPoint.count * innerW / 15000000;
+            if (Math.abs(tPoint.angle) == 0) {
+                if (tPoint.direction == false) {
+                    transformBox(_inner, 0, 0);
+                }
+                transformBox(_inner, offset, 0);
+            }
+        },
+        eCallback: function (tPoint) {
+            var _this = tPoint.self,
+                    _inner = _this.find(".innerBox"),
+                    innerW = _inner.width(),
+                    count = tPoint.count,
+                    offset
+                    ;
+
+            function slide(d) {
+                switch (d) {
+                    case "left":
+                        --count;
+                        offset = -70
+                        break;
+                    case "right":
+                        offset = 0
+                        ++count;
+                    case false:
+                        offset = 0
+                }
+                count = (count == 1 || count == -tPoint.total) ? tPoint.count : count;
+                //var offset = count * innerW / tPoint.total;
+                transformBox(_inner, offset, tPoint.speed);
+            }
+
+            slide(tPoint.direction);
+            tPoint.setAttr("count", count);
+        }
+    }
+
+    var myScroll,
+            pullDownEl,
+            pullUpEl, pullUpOffset,
+            generatedCount = 0;
+
+
+    function loaded() {
+        pullUpEl = document.getElementById('pullUp');
+        pullUpOffset = pullUpEl.offsetHeight;
+
+        myScroll = new iScroll('wrapper', {
+            scrollbarClass: 'myScrollbar', /* 重要样式 */
+            useTransition: false, /* 此属性不知用意，本人从true改为false */
+            onRefresh: function () {
+                 if (pullUpEl.className.match('loading')) {
+                    pullUpEl.className = '';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+                }
+            },
+            onScrollMove: function () {
+                if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+                    pullUpEl.className = 'flip';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
+                    this.maxScrollY = this.maxScrollY;
+                } else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+                    pullUpEl.className = '';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+                    this.maxScrollY = pullUpOffset;
+                }
+            },
+            onScrollEnd: function () {
+                if (pullUpEl.className.match('flip')) {
+                    pullUpEl.className = 'loading';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';
+
+                }
+            }
+        });
+        setTimeout(function () {
+            document.getElementById('wrapper').style.left = '0';
+        }, 800);
+    }
+
+    //初始化绑定iScroll控件
+    document.addEventListener('touchmove', function (e) {
+        e.preventDefault();
+    }, false);
+    document.addEventListener('DOMContentLoaded', loaded, false);
+</script>
+</html>

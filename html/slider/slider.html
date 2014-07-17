@@ -1,0 +1,87 @@
+<html>
+<head>
+    <title>普通的图片轮播</title>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <!--demo展示所用css，不用关心 begin-->
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css">
+    <!--demo展示所用css end-->
+    <!--组件依赖css begin-->
+    <link rel="stylesheet" type="text/css" href="../../css/slider/slider.css">
+    <link rel="stylesheet" type="text/css" href="../../css/slider/slider.default.css">
+    <!--皮肤文件，若不使用该皮肤，可以不加载-->
+    <!--组件依赖css end-->
+    <!--组件依赖js begin-->
+    <script type="text/javascript" src="../../js/lib/gmu/zepto.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/touch.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/matchMedia.js"></script>
+    <style>.gmu-media-detect {
+        -webkit-transition: width 0.001ms;
+        width: 0;
+        position: absolute;
+        clip: rect(1px, 1px, 1px, 1px);
+    }
+
+    @media screen and (width: 320px) {
+        #gmu-media-detect0 {
+            width: 1px;
+        }
+    }
+    </style>
+    <script type="text/javascript" src="../../js/lib/gmu/event.ortchange.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/parseTpl.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/gmu.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/event.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/widget.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/slider.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/arrow.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/dots.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/$touch.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/$autoplay.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/$lazyloadimg.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/imgzoom.js"></script>
+    <!--组件依赖js end-->
+</head>
+<body>
+<div id="slider" class="ui-slider">
+
+
+    <div class="ui-slider-group" style="width: 1280px;">
+        <div class="ui-slider-item" data-index="0"
+             style="width: 320px; left: 0px; -webkit-transition: 400ms; transition: 400ms; -webkit-transform: translate(-320px, 0px) translateZ(0px);">
+            <a href="http://www.baidu.com/"><img src="../../image/image1.png" style="width: 320px;"></a>
+
+            <p>1,让Coron的太阳把自己晒黑—小天</p>
+        </div>
+        <div class="ui-slider-item" data-index="1"
+             style="width: 320px; left: -320px; -webkit-transition: 400ms; transition: 400ms; -webkit-transform: translate(0px, 0px) translateZ(0px);">
+            <a href="http://www.baidu.com/"><img src="../../image/image2.png" style="width: 320px;"></a>
+
+            <p>2,让Coron的太阳把自己晒黑—小天</p>
+        </div>
+        <div class="ui-slider-item" data-index="2"
+             style="width: 320px; left: -640px; -webkit-transition: 0ms; transition: 0ms; -webkit-transform: translate(320px, 0px) translateZ(0px);">
+            <a href="http://www.baidu.com/"><img src="../../image/image3.png" style="width: 320px;"></a>
+
+            <p>3,让Coron的太阳把自己晒黑—小天</p>
+        </div>
+        <div class="ui-slider-item" data-index="3"
+             style="width: 320px; left: -960px; -webkit-transition: 0ms; transition: 0ms; -webkit-transform: translate(320px, 0px) translateZ(0px);">
+            <a href="http://www.baidu.com/"><img lazyload="../../image/image4.png"></a>
+
+            <p>4,让Coron的太阳把自己晒黑—小天</p>
+        </div>
+    </div>
+    <span class="ui-slider-pre"></span><span class="ui-slider-next"></span>
+
+    <p class="ui-slider-dots"><b class=""></b><b class="ui-state-active"></b><b></b><b></b></p></div>
+
+<script>
+    //创建slider组件
+    $('#slider').slider({ imgZoom: true });
+</script>
+
+<div class="gmu-media-detect" id="gmu-media-detect0"></div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" http-equiv="Content-Type"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+    <link rel="stylesheet" type="text/css" href="../../css/custorm.css">
+    <link rel="stylesheet" type="text/css" href="../../css/font-awesome.css">
+</head>
+<body>
+<header class="header">
+    <span class="ui-toolbar-title">登录</span>
+</header>
+<section id="login-content" style="-webkit-transform: translate3d(0px, -200px, 0px)">
+    <div class="mod-content">
+        <p class="error_area" id="error"></p>
+
+        <p class="form-item form-input-wrapper form-item-username">
+            <label class="text-label" for="login-username" id="login-label-username">
+                <i class="fa fa-user fa-2x"></i>
+            </label>
+            <input type="text" name="username" class="text-input" maxlength="60" placeholder="手机号/邮箱/用户名" value=""
+                   id="login-username">
+            <span class="input-clearValue">
+                <i class="fa fa-times-circle"></i>
+            </span>
+        </p>
+
+        <p class="form-item form-input-wrapper">
+            <label class="text-label" for="login-password" id="login-label-password">
+                <i class="fa fa-lock fa-2x"></i>
+            </label>
+            <input type="password" name="password" class="text-input" id="login-password" placeholder="密码" value="">
+            <span class="input-clearValue">
+                <i class="fa fa-times-circle"></i>
+            </span>
+            <span id="login-pwdToggle" class="input-aide input-pwdToggle">
+                <i class="fa fa-eye"></i>
+            </span>
+        </p>
+
+        <p class="form-item">
+            <input type="submit" value="登录" id="login-submit" class="pass-button-full">
+        </p>
+
+        <p class="clearfix">
+            <a class="right" href="#">忘记密码？</a>
+        </p>
+    </div>
+</section>
+<script src="../../js/lib/gmu/zepto.js"></script>
+<script src="../../js/lib/gmu/touch.js"></script>
+<script src="../../js/lib/gmu/iscroll.js"></script>
+<script src="../../js/lib/gmu/highlight.js"></script>
+<script src="../../js/lib/gmu/gmu.js"></script>
+<script src="../../js/lib/gmu/event.js"></script>
+<script src="../../js/lib/gmu/widget.js"></script>
+<script src="../../js/lib/gmu/navigator.js"></script>
+<script src="../../js/lib/gmu/scrolltonext.js"></script>
+<script src="../../js/lib/gmu/$scrollable.js"></script>
+
+<script src="../../js/lib/common.js"></script>
+<script src="../../js/lib/interFace.js"></script>
+<script src="../../js/lib/tools.js"></script>
+<script src="../../js/lib/ajaxRequestUtils.js"></script>
+<script src="../../js/Listeners/home/promotion.js"></script>
+<script>
+    $(function () {
+        $("#login-content").animate({
+            translate3d: '0,0,0'
+        }, "slow", "ease-in-out", function () {
+        });
+        var type = "password";
+        $("input").on("focus blur ", function () {
+            $(this).prev().toggleClass("input-label-show");
+
+        })
+        $("input").on("keyup", function (e) {
+            if ($(this).val().length == 0) {
+                $(this).next().hide();
+            } else {
+                $(this).next().css("display", "-webkit-box");
+            }
+        })
+        $(".input-clearValue").on("tap", function () {
+            $(this).prev().val("").focus();
+
+        })
+        $("#login-pwdToggle").on("tap", function () {
+            $(this).toggleClass("input-pwdToggle-show");
+            if (type === "password") {
+                type = "text"
+            } else {
+                type = "password"
+            }
+            $(this).siblings("input").attr("type", type).focus();
+        })
+    })
+</script>
+</body>
+</html>
+

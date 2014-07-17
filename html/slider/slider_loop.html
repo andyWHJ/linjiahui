@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+    <title>无缝滑动的图片轮播</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css">
+    <!--demo展示所用css end-->
+    <!--组件依赖css begin-->
+    <link rel="stylesheet" type="text/css" href="../../css/slider/slider.css">
+    <link rel="stylesheet" type="text/css" href="../../css/slider/slider.default.css">    <!--组件依赖css end-->
+    <!--组件依赖js begin-->
+    <script type="text/javascript" src="../../js/lib/gmu/zepto.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/touch.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/matchMedia.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/event.ortchange.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/parseTpl.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/gmu.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/event.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/widget.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/slider.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/arrow.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/dots.js"></script>
+    <script type="text/javascript" src="../../js/lib/gmu/$touch.js"></script>
+    <!--组件依赖js end-->
+</head>
+<body>
+<div id="slider">
+    <div>
+        <a href="http://www.baidu.com/"><img src="../../image/image1.png"></a>
+        <p>1,让Coron的太阳把自己晒黑—小天</p>
+    </div>
+    <div>
+        <a href="http://www.baidu.com/"><img src="../../image/image2.png"></a>
+        <p>2,让Coron的太阳把自己晒黑—小天</p>
+    </div>
+    <div>
+        <a href="http://www.baidu.com/"><img src="../../image/image3.png"></a>
+        <p>3,让Coron的太阳把自己晒黑—小天</p>
+    </div>
+    <div>
+        <a href="http://www.baidu.com/"><img src="../../image/image4.png"></a>
+        <p>4,让Coron的太阳把自己晒黑—小天</p>
+    </div>
+</div>
+<script>
+    //创建slider组件
+    $('#slider').slider({loop:true,imgZoom:true});
+</script>
+</body>
+</html>

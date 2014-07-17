@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,minimal-ui, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../../css/navigator/navigator.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/navigator/navigator.default.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/custorm.css"/>
+    <link rel="stylesheet" type="text/css" href="../test/iscroll/scrollbar.css">
+    <link rel="stylesheet" type="text/css" href="../../css/font-awesome.css">
+    <style type="text/css">
+        #nav2 {
+            background: transparent;
+            border-width: 0;
+            display: -webkit-box;
+            -webkit-box-flex: 1;
+            position: relative;
+        }
+
+        #nav2 li a {
+            color: #333;
+            padding: 0 11px;
+        }
+
+        #nav2 li.ui-state-active,
+        #nav2 li.ui-state-hover {
+            background: transparent;
+        }
+
+        #nav2 li.ui-state-active a,
+        #nav2 li.ui-state-hover a {
+            color: #e81459;
+        }
+
+        #nav2 .bar {
+            position: absolute;
+            height: 2px;
+            bottom: 0;
+            overflow: hidden;
+            -webkit-box-sizing: border-box;
+            padding: 0 10px;
+            -webkit-transition: left 200ms ease-out;
+        }
+
+        #nav2 .bar:after {
+            content: '';
+            display: block;
+            height: 2px;
+            background-color: #e81459;
+        }
+
+        #nav2_wrap {
+            display: -webkit-box;
+        }
+
+        .arrow {
+            width: 30px;
+            -webkit-box-flex: 0;
+            -webkit-box-align: center;
+            -webkit-box-pack: center;
+            display: -webkit-box;
+        }
+
+
+    </style>
+</head>
+<body>
+<header class="header">
+    <div class="ui-toolbar-icon left">
+        <i class="fa fa-angle-left fa-2x"></i>
+    </div>
+    <span class="ui-toolbar-title">促销信息</span>
+    <div class="ui-toolbar-icon right">
+        <i class="fa fa-search fa-2x"></i>
+    </div>
+</header>
+<div id="nav2_wrap" style="margin-top: 48px">
+    <a class="arrow"><span><</span></a>
+    <div id="nav2">
+        <ul>
+
+        </ul>
+        <span class="bar"></span>
+    </div>
+    <a class="arrow"><span>&gt;</span></a>
+</div>
+<section>
+    <div style="top:85px;background: #555;text-align: center" id="wrapper">
+        <div id="scroller" style="background: #ffffff;">
+            <div id="pullDown" style="margin-left: 30%;">
+                <span class="pullDownIcon"></span><span class="pullDownLabel">下拉刷新...</span>
+            </div>
+            <div class="outDiv" id="leftPic">
+
+            </div>
+            <div class="outDiv" id="rightPic">
+
+            </div>
+            <div style="clear:both"></div>
+            <div id="pullUp">
+                <span class="pullUpIcon"></span><span class="pullUpLabel">上拉加载更多...</span>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="footer">
+    <ul>
+        <li data-url="../home/index.html">
+            <i class="fa fa-2x fa-home bar-active"></i>
+        </li>
+        <li data-url="../memberCenter/memberCenter.html">
+            <i class="fa fa-user fa-2x"></i>
+        </li>
+        <li data-url="../message/messageList.html">
+            <i class="fa fa-wechat fa-2x"></i>
+        </li>
+        <li data-url="#">
+            <i class="fa fa-map-marker fa-2x"></i>
+        </li>
+        <li data-url="#">
+            <i class="fa fa-bars fa-2x"></i>
+        </li>
+    </ul>
+</footer>
+<script src="../../js/lib/gmu/zepto.js"></script>
+<script src="../../js/lib/gmu/iscroll.js"></script>
+<script src="../../js/lib/gmu/highlight.js"></script>
+<script src="../../js/lib/gmu/gmu.js"></script>
+<script src="../../js/lib/gmu/event.js"></script>
+<script src="../../js/lib/gmu/widget.js"></script>
+<script src="../../js/lib/gmu/navigator.js"></script>
+<script src="../../js/lib/gmu/scrolltonext.js"></script>
+<script src="../../js/lib/gmu/$scrollable.js"></script>
+
+<script src="../../js/lib/common.js"></script>
+<script src="../../js/lib/interFace.js"></script>
+<script src="../../js/lib/tools.js"></script>
+<script src="../../js/lib/ajaxRequestUtils.js"></script>
+<script src="../../js/Listeners/home/promotion.js"></script>
+<script>
+
+    var myScroll, pullDownEl, pullDownOffset;
+    /**
+     * 初始化iScroll控件
+     */
+    function pullDownAction() {
+        setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+            promotionListPage++;
+            refreshpromotionData();
+            myScroll.refresh();		//数据加载完成后，调用界面更新方法   Remember to refresh when contents are loaded (ie: on ajax completion)
+        }, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
+    }
+
+    function pullUpAction() {
+        setTimeout(function () {	// <-- Simulate network congestion, remove setTimeout from production!
+            promotionListPage++;
+            refreshpromotionData();
+            myScroll.refresh();		// 数据加载完成后，调用界面更新方法 Remember to refresh when contents are loaded (ie: on ajax completion)
+        }, 1000);	// <-- Simulate network congestion, remove setTimeout from production!
+    }
+
+    function loaded(pullDownAction,pullUpAction) {
+        pullDownEl = document.getElementById('pullDown');
+        pullDownOffset = pullDownEl.offsetHeight;
+        pullUpEl = document.getElementById('pullUp');
+        pullUpOffset = pullUpEl.offsetHeight;
+        myScroll = new iScroll('wrapper', {
+            scrollbarClass: 'myScrollbar', /* 重要样式 */
+            useTransition: false, /* 此属性不知用意，本人从true改为false */
+            topOffset: pullDownOffset,
+            onRefresh: function () {
+                if (pullDownEl.className.match('loading')) {
+                    pullDownEl.className = '';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+                } else if (pullUpEl.className.match('loading')) {
+                    pullUpEl.className = '';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+                }
+            },
+            onScrollMove: function () {
+                if (this.y > 5 && !pullDownEl.className.match('flip')) {
+                    pullDownEl.className = 'flip';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '松手开始更新...';
+                    this.minScrollY = 0;
+                } else if (this.y < 5 && pullDownEl.className.match('flip')) {
+                    pullDownEl.className = '';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '下拉刷新...';
+                    //this.minScrollY = -pullDownOffset;
+                } else if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+                    pullUpEl.className = 'flip';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '松手开始更新...';
+                    this.maxScrollY = this.maxScrollY;
+                } else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+                    pullUpEl.className = '';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '上拉加载更多...';
+                    this.maxScrollY = pullUpOffset;
+                }
+            },
+            onScrollEnd: function () {
+                if (pullDownEl.className.match('flip')) {
+                    pullDownEl.className = 'loading';
+                    pullDownEl.querySelector('.pullDownLabel').innerHTML = '加载中...';
+                    pullDownAction();	// Execute custom function (ajax call?)
+                } else if (pullUpEl.className.match('flip')) {
+                    pullUpEl.className = 'loading';
+                    pullUpEl.querySelector('.pullUpLabel').innerHTML = '加载中...';
+                    pullUpAction();	// Execute custom function (ajax call?)
+                }
+            }
+        });
+        setTimeout(function () {
+            document.getElementById('wrapper').style.left = '0';
+        }, 800);
+    }
+    //初始化绑定iScroll控件
+    document.addEventListener('touchmove', function (e) {
+        e.preventDefault();
+    }, false);
+    document.addEventListener('DOMContentLoaded', loaded(pullDownAction,pullUpAction), false);
+</script>
+</body>
+</html>
